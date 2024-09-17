@@ -1,0 +1,43 @@
+{
+  "hash": "6c4ea9ce",
+  "configHash": "365b2b28",
+  "lockfileHash": "19ac90e9",
+  "browserHash": "267229e2",
+  "optimized": {
+    "vue": {
+      "src": "../../node_modules/vue/dist/vue.runtime.esm-bundler.js",
+      "file": "vue.js",
+      "fileHash": "ef946863",
+      "needsInterop": false
+    },
+    "webfontloader": {
+      "src": "../../node_modules/webfontloader/webfontloader.js",
+      "file": "webfontloader.js",
+      "fileHash": "df25b37f",
+      "needsInterop": true
+    },
+    "vuetify/blueprints": {
+      "src": "../../node_modules/vuetify/lib/blueprints/index.mjs",
+      "file": "vuetify_blueprints.js",
+      "fileHash": "6dab745f",
+      "needsInterop": false
+    },
+    "vuetify": {
+      "src": "../../node_modules/vuetify/lib/framework.mjs",
+      "file": "vuetify.js",
+      "fileHash": "8245f208",
+      "needsInterop": false
+    }
+  },
+  "chunks": {
+    "chunk-AC6WC5WV": {
+      "file": "chunk-AC6WC5WV.js"
+    },
+    "chunk-XUQ5TESQ": {
+      "file": "chunk-XUQ5TESQ.js"
+    },
+    "chunk-BUSYA2B4": {
+      "file": "chunk-BUSYA2B4.js"
+    }
+  }
+}
