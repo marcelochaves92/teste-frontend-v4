@@ -1,10 +1,11 @@
 <template>
     <v-dialog v-model="dialog" persistent max-width="50%">
         <v-card>
-            <v-card-title class="text-center">
+            <v-card-title class="d-flex justify-space-between">
                 <span class="headline">
                     Histórico de Status do equipamento {{ equipmentName }}
                 </span>
+                <v-icon @click="closeDialog">mdi-close</v-icon>
             </v-card-title>
             <v-card-text>
                 <tableComponent :data="tabelaHistorico" />
@@ -12,10 +13,6 @@
                     <p>Sem histórico disponível para este equipamento.</p>
                 </div>
             </v-card-text>
-            <v-card-actions>
-                <v-spacer></v-spacer>
-                <v-btn @click="closeDialog">Fechar</v-btn>
-            </v-card-actions>
         </v-card>
     </v-dialog>
 </template>
