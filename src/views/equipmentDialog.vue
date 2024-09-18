@@ -27,7 +27,7 @@
 import { tableMixin } from "@/mixins/tableMixin.js";
 
 export default {
-    props: ["equipmentId", "equipmentName", "equipmentProductivity"], // Adiciona a produtividade como prop
+    props: ["equipmentId", "equipmentName", "equipmentProductivity"],
     mixins: [tableMixin],
     data() {
         return {

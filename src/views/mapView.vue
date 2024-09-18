@@ -55,7 +55,7 @@ import equipment from "@/data/equipment.json";
 import equipmentState from "@/data/equipmentState.json";
 import equipmentPositionHistory from "@/data/equipmentPositionHistory.json";
 import equipmentStateHistory from "@/data/equipmentStateHistory.json";
-import equipmentDialog from "./equipmentPopup.vue";
+import equipmentDialog from "./equipmentDialog.vue";
 import L from "leaflet";
 
 const iconMapping = {
@@ -92,7 +92,7 @@ export default {
             selectedEquipmentId: null,
             selectedEquipmentModelId: null,
             selectedEquipmentName: "",
-            equipmentProductivity: "", // Adiciona a propriedade para a produtividade
+            equipmentProductivity: "",
             dialogKey: 0,
         };
     },
@@ -145,7 +145,7 @@ export default {
             this.selectedEquipmentModelId = equipment.modelId;
             this.equipmentProductivity = this.calculateProductivity(
                 equipment.id
-            ); // Calcule a produtividade aqui
+            );
             this.dialogKey += 1;
             this.showHistoryDialog = true;
         },
@@ -154,7 +154,7 @@ export default {
         },
         getIcon(stateName) {
             const mdiIcon = iconMapping[stateName] || "mdi-help-circle-outline";
-            const iconColor = colorMapping[stateName] || "#000000"; // Cor padrão se não houver mapeamento
+            const iconColor = colorMapping[stateName] || "#000000";
             return L.divIcon({
                 className: "custom-icon",
                 html: `<i class="mdi ${mdiIcon}" style="font-size: 24px; color: ${iconColor};"></i>`,
@@ -180,7 +180,7 @@ export default {
             history.states.forEach((state) => {
                 const currentDate = new Date(state.date);
                 const timeDifference =
-                    (currentDate - lastDate) / (1000 * 60 * 60); // Diferença em horas
+                    (currentDate - lastDate) / (1000 * 60 * 60);
 
                 if (
                     state.equipmentStateId ===
@@ -193,7 +193,6 @@ export default {
                 lastDate = currentDate;
             });
 
-            // Considerar o último intervalo até o final do dia (24 horas)
             const endOfDay = new Date(lastDate);
             endOfDay.setHours(24, 0, 0, 0);
             const finalInterval = (endOfDay - lastDate) / (1000 * 60 * 60);
