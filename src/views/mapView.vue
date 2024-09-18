@@ -2,7 +2,9 @@
     <v-container fill-height>
         <v-row align="center" justify="center">
             <v-col cols="auto">
-                <v-img src="/img/aiko.png" width="97px" height="48px" />
+                <div align="center" class="mb-4">
+                    <v-img src="/img/aiko.png" width="97px" height="48px" />
+                </div>
                 <v-card style="height: 600px; width: 800px">
                     <l-map
                         ref="map"
