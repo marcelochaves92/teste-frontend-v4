@@ -8,6 +8,12 @@
                 <v-icon @click="closeDialog">mdi-close</v-icon>
             </v-card-title>
             <v-card-text>
+                <v-row>
+                    <v-col>
+                        <strong>Produtividade:</strong>
+                        {{ equipmentProductivity }}
+                    </v-col>
+                </v-row>
                 <tableComponent :data="tabelaHistorico" />
                 <div v-if="!tabelaHistorico.items.length">
                     <p>Sem histórico disponível para este equipamento.</p>
@@ -21,7 +27,7 @@
 import { tableMixin } from "@/mixins/tableMixin.js";
 
 export default {
-    props: ["equipmentId", "equipmentName"],
+    props: ["equipmentId", "equipmentName", "equipmentProductivity"], // Adiciona a produtividade como prop
     mixins: [tableMixin],
     data() {
         return {

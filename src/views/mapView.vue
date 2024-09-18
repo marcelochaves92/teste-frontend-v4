@@ -37,6 +37,7 @@
                         :equipmentId="selectedEquipmentId"
                         :equipmentName="selectedEquipmentName"
                         :equipmentModelId="selectedEquipmentModelId"
+                        :equipmentProductivity="equipmentProductivity"
                         v-if="showHistoryDialog"
                         @close="handleDialogClose"
                     />
@@ -45,7 +46,6 @@
         </v-row>
     </v-container>
 </template>
-
 <script>
 import "leaflet/dist/leaflet.css";
 import { LMap, LTileLayer, LMarker, LPopup } from "@vue-leaflet/vue-leaflet";
@@ -90,6 +90,7 @@ export default {
             selectedEquipmentId: null,
             selectedEquipmentModelId: null,
             selectedEquipmentName: "",
+            equipmentProductivity: "", // Adiciona a propriedade para a produtividade
             dialogKey: 0,
         };
     },
@@ -140,6 +141,9 @@ export default {
             this.selectedEquipmentId = equipment.id;
             this.selectedEquipmentName = equipment.name;
             this.selectedEquipmentModelId = equipment.modelId;
+            this.equipmentProductivity = this.calculateProductivity(
+                equipment.id
+            ); // Calcule a produtividade aqui
             this.dialogKey += 1;
             this.showHistoryDialog = true;
         },
@@ -155,6 +159,45 @@ export default {
                 iconSize: [32, 32],
                 iconAnchor: [16, 32],
             });
+        },
+
+        calculateProductivity(equipmentId) {
+            const history = this.equipmentStateHistory.find(
+                (e) => e.equipmentId === equipmentId
+            );
+
+            if (!history || history.states.length === 0) {
+                return "0%";
+            }
+
+            let productiveHours = 0;
+            let totalHours = 0;
+
+            let lastDate = new Date(history.states[0].date);
+
+            history.states.forEach((state) => {
+                const currentDate = new Date(state.date);
+                const timeDifference =
+                    (currentDate - lastDate) / (1000 * 60 * 60); // Diferença em horas
+
+                if (
+                    state.equipmentStateId ===
+                    this.stateData.find((s) => s.name === "Operando")?.id
+                ) {
+                    productiveHours += timeDifference;
+                }
+
+                totalHours += timeDifference;
+                lastDate = currentDate;
+            });
+
+            // Considerar o último intervalo até o final do dia (24 horas)
+            const endOfDay = new Date(lastDate);
+            endOfDay.setHours(24, 0, 0, 0);
+            const finalInterval = (endOfDay - lastDate) / (1000 * 60 * 60);
+            totalHours += finalInterval;
+
+            return ((productiveHours / totalHours) * 100).toFixed(2) + "%";
         },
     },
 };
